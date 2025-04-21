@@ -24,11 +24,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Header Part -->
-    <div class="w-full p-5 shadow sticky top-0 dark:bg-black dark:text-white">
+    <div class="w-full p-5 shadow sticky top-0 dark:bg-black dark:text-white bg-white z-50">
         <h1 class="text-2xl font-bold font-stretch-ultra-condensed">Fitness Tracker</h1>
     </div>
 
-    <!-- Content Part -->
+    <div class="overflow-scroll h-screen">
+        <!-- Content Part -->
     <div class="home dark:bg-black dark:text-white">
         <div class=" mx-4 my-4 p-6 shadow-xl border-1 border-gray-200 rounded-xl dark:bg-black dark:text-white dark:border-white">
             <h1 class="font-semibold dark:text-white dark:bg-black">Welcome,To My Fitness Tracker</h1>
@@ -98,6 +99,7 @@
     <div class="quta hidden dark:bg-black dark:text-white" id="savedWorkouts">
 
     </div>
+    </div>
 
     <div class="w-full fixed bottom-0 bg-white shadow-lg border-t border-gray-200 z-50 dark:bg-black dark:text-white">
         <div class="flex justify-around items-center py-3">
@@ -161,18 +163,18 @@
                     workouts.forEach(w => {
                         const block = `
                     <div class="mx-4 my-4 p-6 shadow-xl border border-gray-200 rounded-xl bg-white dark:bg-black dark:text-white dark:border-white">
-                      <h2 class="text-md font-semibold text-gray-800 mb-2">${w.date}</h2>
+                      <h2 class="text-md font-semibold text-gray-800 mb-2 dark:text-white">${w.date}</h2>
                       <div class="mb-2">
-                        <h3 class="text-sm font-medium text-gray-700">🔥 Chest Workout</h3>
-                        <p class="text-gray-600">${formatWorkout(w.chest)}</p>
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-white">🔥 Chest Workout</h3>
+                        <p class="text-gray-600 dark:text-white">${formatWorkout(w.chest)}</p>
                       </div>
                       <div class="mb-2">
-                        <h3 class="text-sm font-medium text-gray-700">💪 Abs Workout</h3>
-                        <p class="text-gray-600">${formatWorkout(w.abs)}</p>
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-white">💪 Abs Workout</h3>
+                        <p class="text-gray-600 dark:text-white">${formatWorkout(w.abs)}</p>
                       </div>
                       <div>
-                        <h3 class="text-sm font-medium text-gray-700">🦵 Legs Workout</h3>
-                        <p class="text-gray-600">${formatWorkout(w.legs)}</p>
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-white">🦵 Legs Workout</h3>
+                        <p class="text-gray-600 dark:text-white">${formatWorkout(w.legs)}</p>
                       </div>
                     </div>`;
                         container.innerHTML += block;
