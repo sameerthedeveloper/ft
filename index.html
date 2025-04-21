@@ -18,7 +18,7 @@
   </script>
 </head>
 
-<body>
+<body class="dark:text-white dark:bg-black">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -59,7 +59,7 @@
             <div
                 class="flex-1 bg-orange-100 p-3 rounded-xl shadow border border-black flex justify-center items-center dark:bg-black">
                 <select
-                    class="bg-orange-100 w-full text-sm font-medium outline-none text-center dark:bg-gray-700 dark:text-white"
+                    class="bg-orange-100 w-full text-sm font-medium outline-none text-center dark:bg-black dark:text-white"
                     id="absWorkout">
                     <option disabled selected>Select Your Difficulty</option>
                     <option value="C">Crunches (Easy)</option>
@@ -99,8 +99,13 @@
 
     </div>
 
-    <!-- Bottom Navigation Bar with Icons -->
-    <div class="w-full fixed bottom-0 bg-white shadow-lg border-t border-gray-200 z-50 dark:bg-black">
+    <div class="w-full fixed bottom-0 bg-white shadow-lg border-t border-gray-200 z-50 dark:bg-black dark:text-white">
+        <div class="flex justify-around items-center py-3">
+
+            <!-- Home Tab -->
+            <div
+                class="flex flex-col items-center text-gray-500 hover:text-black cursor-pointer item home dark:text-white">
+                <i class="fa-solid fa-plus"></i>
                 <span class="text-sm dark:text-white">Add Workout</span>
             </div>
 
@@ -110,6 +115,13 @@
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span class="text-sm dark:text-white">History</span>
             </div>
+
+
+
+
+
+        </div>
+    </div>
             <script>
                 // Save workout to localStorage with validation
                 document.getElementById('saveWorkout').addEventListener('click', function () {
@@ -148,7 +160,7 @@
 
                     workouts.forEach(w => {
                         const block = `
-                    <div class="mx-4 my-4 p-6 shadow-xl border border-gray-200 rounded-xl bg-white">
+                    <div class="mx-4 my-4 p-6 shadow-xl border border-gray-200 rounded-xl bg-white dark:bg-black dark:text-white dark:border-white">
                       <h2 class="text-md font-semibold text-gray-800 mb-2">${w.date}</h2>
                       <div class="mb-2">
                         <h3 class="text-sm font-medium text-gray-700">🔥 Chest Workout</h3>
