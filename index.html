@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fitness Tracker</title>
+    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
+</head>
+
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Header Part -->
+    <div class="w-full p-5 shadow sticky top-0">
+        <h1 class="text-2xl font-bold font-stretch-ultra-condensed">Fitness Tracker</h1>
+    </div>
+
+    <!-- Content Part -->
+    <div class="home">
+        <div class=" mx-4 my-4 p-6 shadow-xl border-1 border-gray-200 rounded-xl  ">
+            <h1 class="font-semibold">Welcome,To My Fitness Tracker</h1>
+        </div>
+        <div class=" mx-4 p-1  rounded-xl  flex justify-between">
+            <h1 class="font-semibold">You Can Add Plan Here</h1>
+
+        </div>
+
+        <div
+            class="flex flex-col m-4 bg-white p-4 gap-4 rounded-xl shadow-xl border-1 border-gray-200 dark:bg-gray-800">
+            <h1 class="text-md font-semibold text-gray-800 dark:text-white">Chest Workout</h1>
+            <div
+                class="flex-1 bg-orange-100 p-3 rounded-xl shadow border border-black flex justify-center items-center dark:bg-gray-700">
+                <select
+                    class="bg-orange-100 w-full text-sm font-medium outline-none text-center dark:bg-gray-700 dark:text-white"
+                    id="chestWorkout">
+                    <option disabled selected>Select Your Difficulty</option>
+                    <option value="KPU">Knee Push-Ups (Easy)</option>
+                    <option value="PPU">Pike Push-Ups (Hard)</option>
+                </select>
+            </div>
+
+        </div>
+        <div
+            class="flex flex-col m-4 bg-white p-4 gap-4 rounded-xl shadow-xl border-1 border-gray-200 dark:bg-gray-800">
+            <h1 class="text-md font-semibold text-gray-800 dark:text-white">Abs Workout</h1>
+            <div
+                class="flex-1 bg-orange-100 p-3 rounded-xl shadow border border-black flex justify-center items-center dark:bg-gray-700">
+                <select
+                    class="bg-orange-100 w-full text-sm font-medium outline-none text-center dark:bg-gray-700 dark:text-white"
+                    id="absWorkout">
+                    <option disabled selected>Select Your Difficulty</option>
+                    <option value="C">Crunches (Easy)</option>
+                    <option value="RC">Reverse Crunch with Leg Raise (Hard)</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div
+            class="flex flex-col m-4 bg-white p-4 gap-4 rounded-xl shadow-xl border-1 border-gray-200 dark:bg-gray-800">
+            <h1 class="text-md font-semibold text-gray-800 dark:text-white">Leg Workout</h1>
+            <div
+                class="flex-1 bg-orange-100 p-3 rounded-xl shadow border border-black flex justify-center items-center dark:bg-gray-700">
+                <select
+                    class="bg-orange-100 w-full text-sm font-medium outline-none text-center dark:bg-gray-700 dark:text-white"
+                    id="legsWorkout">
+                    <option disabled selected>Select Your Difficulty</option>
+                    <option value="BS">Bodyweight Squats (Easy)</option>
+                    <option value="JJ">Jumping Lunges (Hard)</option>
+                </select>
+            </div>
+
+        </div>
+        <div
+            class="flex flex-col m-4 bg-white p-4 gap-4 rounded-xl shadow-xl border-1 border-gray-200 dark:bg-gray-800">
+            <div
+                class="flex-1 bg-orange-100 p-3 rounded-xl shadow border border-black flex justify-center items-center dark:bg-gray-700">
+                <button id="saveWorkout">Save The WorkOut</button>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="quta hidden" id="savedWorkouts">
+
+    </div>
+
+    <!-- Bottom Navigation Bar with Icons -->
+    <div class="w-full fixed bottom-0 bg-white shadow-lg border-t border-gray-200 z-50 dark:bg-gray-700 ">
+        <div class="flex justify-around items-center py-3">
+
+            <!-- Home Tab -->
+            <div
+                class="flex flex-col items-center text-gray-500 hover:text-black cursor-pointer item home dark:text-white">
+                <i class="fa-solid fa-plus"></i>
+                <span class="text-sm">Add Workout</span>
+            </div>
+
+            <!-- Invoices Tab -->
+            <div
+                class="flex flex-col items-center text-gray-500 hover:text-black cursor-pointer item invoice dark:text-white">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span class="text-sm">History</span>
+            </div>
+            <script>
+                // Save workout to localStorage with validation
+                document.getElementById('saveWorkout').addEventListener('click', function () {
+                    const chestSelect = document.getElementById('chestWorkout');
+                    const absSelect = document.getElementById('absWorkout');
+                    const legsSelect = document.getElementById('legsWorkout');
+
+                    if (
+                        chestSelect.selectedIndex === 0 ||
+                        absSelect.selectedIndex === 0 ||
+                        legsSelect.selectedIndex === 0
+                    ) {
+                        alert("Please select all workouts!");
+                        return;
+                    }
+
+                    const workout = {
+                        date: new Date().toLocaleString(),
+                        chest: chestSelect.value,
+                        abs: absSelect.value,
+                        legs: legsSelect.value
+                    };
+
+                    let workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+                    workouts.push(workout);
+                    localStorage.setItem("workouts", JSON.stringify(workouts));
+                    alert("Workout saved!");
+                    displayWorkouts();
+                });
+
+                // Display saved workouts
+                function displayWorkouts() {
+                    const container = document.querySelector('#savedWorkouts');
+                    container.innerHTML = ''; // Clear previous entries
+                    const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+
+                    workouts.forEach(w => {
+                        const block = `
+                    <div class="mx-4 my-4 p-6 shadow-xl border border-gray-200 rounded-xl bg-white">
+                      <h2 class="text-md font-semibold text-gray-800 mb-2">${w.date}</h2>
+                      <div class="mb-2">
+                        <h3 class="text-sm font-medium text-gray-700">🔥 Chest Workout</h3>
+                        <p class="text-gray-600">${formatWorkout(w.chest)}</p>
+                      </div>
+                      <div class="mb-2">
+                        <h3 class="text-sm font-medium text-gray-700">💪 Abs Workout</h3>
+                        <p class="text-gray-600">${formatWorkout(w.abs)}</p>
+                      </div>
+                      <div>
+                        <h3 class="text-sm font-medium text-gray-700">🦵 Legs Workout</h3>
+                        <p class="text-gray-600">${formatWorkout(w.legs)}</p>
+                      </div>
+                    </div>`;
+                        container.innerHTML += block;
+                    });
+                }
+
+                // Map workout codes to readable labels
+                function formatWorkout(code) {
+                    const map = {
+                        KPU: 'Knee Push-Ups (Easy)',
+                        PPU: 'Pike Push-Ups (Hard)',
+                        C: 'Crunches (Easy)',
+                        RC: 'Reverse Crunch with Leg Raise (Hard)',
+                        BS: 'Bodyweight Squats (Easy)',
+                        JJ: 'Jumping Lunges (Hard)'
+                    };
+                    return map[code] || code;
+                }
+
+
+                // Load workouts on first visit
+                displayWorkouts();
+            </script>
+
+
+            <script>
+                const items = document.querySelectorAll('.item');
+                const home = document.querySelector('.home');
+                const invoice = document.querySelector('.quta');
+
+
+                // invoice.style.display = 'none';
+
+
+                items.forEach(item => {
+                    item.addEventListener('click', () => {
+
+                        items.forEach(element => {
+                            element.classList.remove('active');
+                        });
+
+
+                        item.classList.add('active');
+
+
+                        if (item.classList.contains('home')) {
+                            home.style.display = 'block';
+                            invoice.style.display = 'none';
+                        } else if (item.classList.contains('invoice')) {
+                            home.style.display = 'none';
+                            invoice.style.display = 'block';
+                        }
+                    });
+                });
+            </script>
+</body>
+
+</html>
